@@ -1,24 +1,34 @@
-*.class
+# maven ignore
+target/
 
-# Package Files #
-*.jar
-*.war
-*.ear
-# Others #
-.settings
+# gradle ignore
+.gradle/
+out/
+build/
+gradle
+
+# eclipse ignore
+.settings/
 .project
 .classpath
-.idea
-*.iml
+classes/
+gradle/
+
+# idea ignore
+.idea/
 *.ipr
+*.iml
 *.iws
-*.class
-temp
-bin
-target
-pom.xml.versionsBackup
-.svn
-pom.xml~
-*~
+
+# temp ignore
+*.log*
+*.cache
+*.diff
+*.patch
+*.tmp
+*.swp
+
+# system ignore
 .DS_Store
-transaction.log
+Thumbs.db
+hs_err_pid*
