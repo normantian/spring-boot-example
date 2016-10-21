@@ -20,6 +20,8 @@ public class RequestLogAop {
 
     private final Logger logger = Logger.getLogger(getClass());
 
+    private static Gson gson = new Gson();
+
     @Pointcut("execution( * org.sun.spring.controller.*.*(..))")
     public void pointCutAt() {
     }
@@ -31,9 +33,7 @@ public class RequestLogAop {
 
     @Around("pointCutAt()")
     public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
-        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
-        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
-        HttpServletRequest request = sra.getRequest();
+        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 
         String url = request.getRequestURL().toString();
         String method = request.getMethod();
@@ -44,8 +44,7 @@ public class RequestLogAop {
 
         // result的值就是被拦截方法的返回值
         Object result = pjp.proceed();
-        Gson gson = new Gson();
-        logger.info("请求结束，controller的返回值是 " + result.toString());
+        //logger.info("请求结束，controller的返回值是 " + result.toString());
         logger.info("请求结束，controller的返回值是 " + gson.toJson(result));
         return result;
     }
