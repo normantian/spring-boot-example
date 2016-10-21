@@ -13,7 +13,7 @@ import javax.annotation.security.RolesAllowed;
 public class SiteController {
 
     @RequestMapping(value = "/code/{codeNo}",
-            method = RequestMethod.GET,
+            method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, //要求请求头必须有MIME类型
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE //返回的MIME数据类型
     )
@@ -40,6 +40,15 @@ public class SiteController {
     public String testString(@RequestParam(name = "userName", required = false) String userName) {
         return userName == null ? "Hello man" : sayHello(userName);
     }
+
+    @RequestMapping(value = "/div/{a}/{b}",
+            method = RequestMethod.GET)
+    //@PermitAll
+    public Integer testString(@PathVariable("a") Integer a,@PathVariable("b") Integer b) {
+        return a/b;
+    }
+
+
 
     private String sayHello(final String userName) {
         return "Hello "+userName;

@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.security.DenyAll;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 
 @Aspect
 @Component
+@Order(3)
 public class AuthCheckAop {
 
     private final Logger logger = Logger.getLogger(getClass());
@@ -38,15 +40,18 @@ public class AuthCheckAop {
 
 
         logger.info("=====AuthCheck aop======");
+/*
 
-//        logger.info("" + pjp.getKind());
-//        logger.info("signature name:" + pjp.getSignature().getName());
-//        logger.info("getDeclaringTypeName :" + pjp.getSignature().getDeclaringTypeName());
-//        logger.info("toLongString : " + pjp.getSignature().toLongString());
-//        logger.info("toShortString : " + pjp.getSignature().toShortString());
-//        logger.info("target toString : " + pjp.getTarget().toString());
+        logger.info("" + pjp.getKind());
+        logger.info("signature name:" + pjp.getSignature().getName());
+        logger.info("getDeclaringTypeName :" + pjp.getSignature().getDeclaringTypeName());
+        logger.info("toLongString : " + pjp.getSignature().toLongString());
+        logger.info("toShortString : " + pjp.getSignature().toShortString());
+        logger.info("target toString : " + pjp.getTarget().toString());
+*/
 
         //logger.info("args : " + Arrays.toString(pjp.getArgs()));
+
 
         Signature signature = pjp.getSignature();
         MethodSignature methodSignature = null;
