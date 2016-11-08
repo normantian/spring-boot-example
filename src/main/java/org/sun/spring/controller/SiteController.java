@@ -13,11 +13,11 @@ import javax.annotation.security.RolesAllowed;
 public class SiteController {
 
     @RequestMapping(value = "/code/{codeNo}",
-            method = RequestMethod.DELETE,
+            method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, //要求请求头必须有MIME类型
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE //返回的MIME数据类型
     )
-    @RolesAllowed({"users","administrators"})
+    //@RolesAllowed({"users","administrators"})
     public Map<String, Object> actionIndex(@PathVariable("codeNo") Integer codeNo) {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("code", codeNo);
@@ -38,6 +38,13 @@ public class SiteController {
             method = RequestMethod.GET)
     @PermitAll
     public String testString(@RequestParam(name = "userName", required = false) String userName) {
+        return userName == null ? "Hello man" : sayHello(userName);
+    }
+
+    @RequestMapping(value = "/hello/{userName}",
+            method = RequestMethod.GET)
+    @PermitAll
+    public String hello(@PathVariable("userName") String userName) {
         return userName == null ? "Hello man" : sayHello(userName);
     }
 

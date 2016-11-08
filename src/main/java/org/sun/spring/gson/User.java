@@ -42,4 +42,13 @@ public class User {
     public String getEmailAddress() {
         return emailAddress;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", emailAddress='" + emailAddress + '\'' +
+                '}';
+    }
 }
