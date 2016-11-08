@@ -42,7 +42,7 @@ public class RequestLogAop {
 
         HttpSession session = request.getSession();
         String ip = request.getRemoteAddr();
-        System.out.println(ip);
+        //System.out.println(ip);
         //System.out.println(request.getRemoteHost() + ":" +request.getRemotePort());
 
         String url = request.getRequestURL().toString();
