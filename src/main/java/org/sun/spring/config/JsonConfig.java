@@ -28,8 +28,8 @@ public class JsonConfig {
                               JsonGenerator jsonGenerator,
                               SerializerProvider provider)
                 throws IOException, JsonProcessingException {
-            System.out.println("======================");
-            System.out.println("Date Serializer " + value.toString());
+//            System.out.println("======================");
+//            System.out.println("Date Serializer " + value.toString());
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             jsonGenerator.writeString(sdf.format(value));
         }
@@ -40,8 +40,8 @@ public class JsonConfig {
         public Date deserialize(JsonParser jp, DeserializationContext ctxt)
                 throws IOException, JsonProcessingException{
 
-            System.out.println("======================");
-            System.out.println("Date Deserializer " + jp.getValueAsString());
+//            System.out.println("======================");
+//            System.out.println("Date Deserializer " + jp.getValueAsString());
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

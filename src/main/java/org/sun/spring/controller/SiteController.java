@@ -15,7 +15,10 @@ import org.sun.spring.entity.Seckill;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+
 @RestController
+@RequestMapping(produces = APPLICATION_JSON_UTF8_VALUE) //返回的MIME数据类型
 public class SiteController {
 
     @RequestMapping(value = "/child/{id}",
@@ -26,8 +29,8 @@ public class SiteController {
 
     @RequestMapping(value = "/child",
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, //要求请求头必须有MIME类型
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+            consumes = APPLICATION_JSON_UTF8_VALUE//要求请求头必须有MIME类型
+            )
     public ResponseEntity<?> post(@RequestBody Seckill seckill){
         System.out.println(seckill);
         seckill.setSeckillId(1001);
@@ -37,8 +40,8 @@ public class SiteController {
 
     @RequestMapping(value = "/code/{codeNo}",
             method = RequestMethod.GET,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, //要求请求头必须有MIME类型
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE //返回的MIME数据类型
+            consumes = APPLICATION_JSON_UTF8_VALUE, //要求请求头必须有MIME类型
+            produces = APPLICATION_JSON_UTF8_VALUE //返回的MIME数据类型
     )
     //@RolesAllowed({"users","administrators"})
     public Map<String, Object> getMap(@PathVariable("codeNo") Integer codeNo) {
@@ -50,7 +53,7 @@ public class SiteController {
     @RequestMapping(value = "/list",
             method = RequestMethod.GET,
             //consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, //要求请求头必须有MIME类型
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE //返回的MIME数据类型
+            produces = APPLICATION_JSON_UTF8_VALUE //返回的MIME数据类型
     )
     //@RolesAllowed({"users","administrators"})
     public List<String> getList() {
@@ -63,8 +66,10 @@ public class SiteController {
 
     @RequestMapping(value = "/listSeckill",
             method = RequestMethod.GET,
-            //consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, //要求请求头必须有MIME类型
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE //返回的MIME数据类型
+//            consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE,
+//                    MediaType.APPLICATION_XML_VALUE}, //要求请求头必须有MIME类型
+            produces = {APPLICATION_JSON_UTF8_VALUE,
+                    MediaType.APPLICATION_XML_VALUE} //返回的MIME数据类型
     )
     //@RolesAllowed({"users","administrators"})
     public List<Seckill> listSeckill() {

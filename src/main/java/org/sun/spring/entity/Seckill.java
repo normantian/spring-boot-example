@@ -3,25 +3,34 @@ package org.sun.spring.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+@XmlRootElement(name="seckill")
 public class Seckill {
+	@XmlElement
 	private long seckillId;
-	
+
+	@XmlElement
 	private String name;
-	
+
+	@XmlElement
 	private int number;
 
 	//@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	//@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@XmlElement
 	private Date startTime;
 
 	//@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	//@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@XmlElement
 	private Date endTime;
 
 	//@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	//@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@XmlElement
 	private Date createTime;
 
 	/**

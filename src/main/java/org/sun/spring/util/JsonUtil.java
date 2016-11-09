@@ -38,18 +38,6 @@ public class JsonUtil {
         //objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
-    public static void main(String[] args) {
-
-        String json = JsonUtil.beanToJson(new TestBean(null,"HELLO"));
-        System.out.println(json);
-        json = "{name:\"hello\"}";
-        System.out.println(json);
-        List<TestBean> beans = JsonUtil.jsonToBeans(json,TestBean.class);
-        for (TestBean bean: beans) {
-            System.out.println(bean);
-        }
-    }
-
     public static class TestBean{
         private String name;
         private Integer id;
