@@ -1,6 +1,5 @@
 package org.sun.spring;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -14,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.net.URL;
 
-import static org.apache.coyote.http11.Constants.a;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 

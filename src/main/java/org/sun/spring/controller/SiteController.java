@@ -1,5 +1,6 @@
 package org.sun.spring.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,11 +12,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.sun.spring.entity.Seckill;
+import org.sun.spring.util.HttpClientUtil;
+import org.sun.spring.util.JsonUtil;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+import static org.sun.spring.util.HttpClientUtil.doGet;
 
 @RestController
 @RequestMapping(produces = APPLICATION_JSON_UTF8_VALUE) //返回的MIME数据类型
@@ -35,6 +40,24 @@ public class SiteController {
         System.out.println(seckill);
         seckill.setSeckillId(1001);
         return new ResponseEntity<>(seckill,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/ip",
+            method = RequestMethod.GET
+    )
+    public String getIp(HttpServletRequest request) throws UnsupportedEncodingException {
+        String json = HttpClientUtil.doGet("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=");
+        System.out.println(json);
+        //String returnJson = new String(json);
+        StringBuilder sb = new StringBuilder("your ip is ");
+        sb.append(request.getRemoteAddr()).append("\n");
+        sb.append(JsonUtil.findValuesByKey(json,"country").get(0) + "\n");
+        sb.append(JsonUtil.findValuesByKey(json,"city").get(0)+"\n");
+        sb.append(JsonUtil.findValuesByKey(json,"district").get(0)+"\n");
+        return sb.toString();
+        //return sb.append(JsonUtil.findValuesByKey(json,"country").get(0)).toString();
+        //return request.getRemoteHost() + " " + request.getRemoteAddr();
+
     }
 
 
@@ -133,7 +156,6 @@ public class SiteController {
         return "Hello "+userName;
     }
     //</editor-fold>
-
 
 
 }

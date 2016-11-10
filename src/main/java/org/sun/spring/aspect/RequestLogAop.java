@@ -51,7 +51,7 @@ public class RequestLogAop {
         String uri = request.getRequestURI();
         String queryString = request.getQueryString();
         //logger.info("请求开始, 各个参数, url: {}, method: {}, uri: {}, params: {}", url, method, uri, queryString);
-        logger.info("请求开始, 各个参数, url: " + url + ", method: " + method + ", uri: " + uri + ", Content-Type:" + contentType +", params: " + queryString);
+        logger.info("请求开始, 各个参数, ip:"+ ip + " url: " + url + ", method: " + method + ", uri: " + uri + ", Content-Type:" + contentType +", params: " + queryString);
 
         // result的值就是被拦截方法的返回值
         Object result = pjp.proceed();

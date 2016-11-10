@@ -31,6 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.sun.spring.util.HttpClientUtil.doGet;
 import static org.sun.spring.util.HttpClientUtil.doPost;
@@ -64,11 +65,13 @@ public class SiteControllerTest extends SpringBootMvcBaseTest {
                 super.mvc.perform(get("/code/123").accept(MediaType.APPLICATION_JSON_UTF8).contentType(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk()) //返回的状态是200
                         .andExpect(content().string("{\"code\":123}"))
+                        .andExpect(jsonPath("$.code").value(123))
                         .andDo(print())
                         .andReturn().getResponse().getContentAsString(); //打印出请求和相应的内容
         System.out.println(responseString);
 
     }
+
 
     @Test
     public void getStringList() throws Exception {
