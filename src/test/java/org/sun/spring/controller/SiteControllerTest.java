@@ -61,11 +61,15 @@ public class SiteControllerTest extends SpringBootMvcBaseTest {
      */
     @Test
     public void actionIndex() throws Exception {
+        Map<String,Integer> map = new HashMap<>();
+        map.put("code",123);
+        System.out.println(JsonUtil.beanToJson(map));
         String responseString =
                 super.mvc.perform(get("/code/123").accept(MediaType.APPLICATION_JSON_UTF8).contentType(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk()) //返回的状态是200
                         .andExpect(content().string("{\"code\":123}"))
                         .andExpect(jsonPath("$.code").value(123))
+                        .andExpect(content().json(JsonUtil.beanToJson(map)))
                         .andDo(print())
                         .andReturn().getResponse().getContentAsString(); //打印出请求和相应的内容
         System.out.println(responseString);
