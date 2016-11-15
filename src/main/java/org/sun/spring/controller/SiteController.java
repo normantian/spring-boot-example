@@ -27,7 +27,8 @@ import static org.sun.spring.util.HttpClientUtil.doGet;
 public class SiteController {
 
     @RequestMapping(value = "/child/{id}",
-            method = RequestMethod.DELETE)
+            method = RequestMethod.DELETE,
+            consumes = APPLICATION_JSON_UTF8_VALUE)
     public String deleteChild(@PathVariable("id") Integer id){
         return "delete id is " + id;
     }
@@ -73,6 +74,20 @@ public class SiteController {
         return result;
     }
 
+    @RequestMapping(value = "/testGet/{key}",
+            method = RequestMethod.GET,
+            consumes = APPLICATION_JSON_UTF8_VALUE, //要求请求头必须有MIME类型
+            produces = APPLICATION_JSON_UTF8_VALUE //返回的MIME数据类型
+    )
+    //@RolesAllowed({"users","administrators"})
+    public Map<String, Object> getMap2(@PathVariable("key") String key,@RequestParam("test") Integer test) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put(key, test);
+        return result;
+    }
+
+
+
     @RequestMapping(value = "/list",
             method = RequestMethod.GET,
             //consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, //要求请求头必须有MIME类型
@@ -86,16 +101,28 @@ public class SiteController {
         return list;
     }
 
+    @RequestMapping(value = "/put/{id}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Seckill> updateSeckill(@PathVariable("id") int id,
+                                                 @RequestBody Seckill seckill) {
+        System.out.println(id);
+        System.out.println(seckill);
+
+        return new ResponseEntity<Seckill>(seckill, HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/listSeckill",
             method = RequestMethod.GET,
 //            consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE,
 //                    MediaType.APPLICATION_XML_VALUE}, //要求请求头必须有MIME类型
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = {APPLICATION_JSON_UTF8_VALUE,
                     MediaType.APPLICATION_XML_VALUE} //返回的MIME数据类型
     )
     //@RolesAllowed({"users","administrators"})
-    public List<Seckill> listSeckill() {
+    public ResponseEntity<List<Seckill>> listSeckill() {
         List<Seckill> list = new ArrayList<>();
         Seckill seckill = new Seckill();
         seckill.setSeckillId(1000L);
@@ -114,7 +141,7 @@ public class SiteController {
         seckill2.setStartTime(new DateTime(2016,11,21,4,0,0).toDate());
         list.add(seckill);
         list.add(seckill2);
-        return list;
+        return ResponseEntity.ok(list);
     }
 
 

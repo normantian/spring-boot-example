@@ -24,8 +24,8 @@ public class RestClient {
 
     static {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-        requestFactory.setReadTimeout(5000);
-        requestFactory.setConnectTimeout(5000);
+        requestFactory.setReadTimeout(30000);
+        requestFactory.setConnectTimeout(15000);
 
         // 添加转换器
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();

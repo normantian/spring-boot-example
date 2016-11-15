@@ -1,5 +1,6 @@
 package org.sun.spring.controller;
 
+import org.apache.commons.collections4.MultiValuedMap;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,12 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.sun.spring.Bootstrap;
 import org.sun.spring.SpringBootBaseTest;
 import org.sun.spring.SpringBootMvcBaseTest;
@@ -144,6 +149,42 @@ public class SiteControllerTest extends SpringBootMvcBaseTest {
 //        map.forEach((k,v) -> System.out.println(k + " " + v.toString()));
     }
 
+    @Test
+    public void getMap3() throws Exception {
+        String url = base.toString() + "testGet/{key}";
+
+        Map<String,Object> param = new HashMap<>();
+        param.put("key","key1");
+
+        MultiValueMap<String,String> paramMap = new LinkedMultiValueMap<>();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
+                .queryParam("test",100);
+
+
+        System.out.println(builder.build().encode().toUriString());
+        System.out.println(builder.build().encode().toString());
+
+//        Map<String,Object> param = new HashMap<>();
+//        param.put("test",100);
+
+        // set headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept",MediaType.APPLICATION_JSON_UTF8_VALUE);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+        // execute
+//        ResponseEntity<Map> body = restTemplate
+//                .exchange(url, HttpMethod.GET,requestEntity,Map.class);
+//        Map<String, Object> resultMap = body.getBody();
+        ResponseEntity<Map> body = restTemplate.exchange(builder.build().toUriString(),
+                HttpMethod.GET,requestEntity,Map.class,param);
+        Map<String, Object> resultMap = body.getBody();
+        resultMap.forEach((k,v) -> System.out.println("key=" + k + " value=" + v));
+    }
+
 
     @Test
     public void getMap2() throws Exception {
@@ -156,14 +197,14 @@ public class SiteControllerTest extends SpringBootMvcBaseTest {
         headers.add("Accept",MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
+        //HttpEntity<String> requestEntity = new HttpEntity<>(headers);
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-        //HttpEntity<String> requestEntity = new HttpEntity<>(new HttpHeaders());
-        String json = HttpClientUtil.doGet(url,1000);
-        System.out.println(json);
-//        ResponseEntity<Map> body = restTemplate
-//                .exchange(url, HttpMethod.GET,requestEntity,Map.class,param);
-//        Map<String, Object> resultMap = body.getBody();
-//        resultMap.forEach((k,v) -> System.out.println("key=" + k + " value=" + v));
+        //String json = HttpClientUtil.doGet(url,1000);
+        //System.out.println(json);
+        ResponseEntity<Map> body = restTemplate
+                .exchange(url, HttpMethod.GET,requestEntity,Map.class,param);
+        Map<String, Object> resultMap = body.getBody();
+        resultMap.forEach((k,v) -> System.out.println("key=" + k + " value=" + v));
 
 //        ResponseEntity<String> respsonse = restTemplate.getForEntity(url,String.class,1001);
 //        Map<String,Object> map = restTemplate.getForObject(url,Map.class,1001);
@@ -257,5 +298,69 @@ public class SiteControllerTest extends SpringBootMvcBaseTest {
 //        String postJson = HttpClientUtil.doPost(url,seckill);
 //        System.out.println(JsonUtil.jsonToBean(postJson,Seckill.class));
     }
+
+    @Test
+    public void testGetMethod() throws Exception {
+        String url = base.toString() + "listSeckill";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept",MediaType.APPLICATION_JSON_UTF8_VALUE);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        HttpEntity<?> httpEntity = new HttpEntity<>(headers);
+        ResponseEntity<String> responseEntity = restTemplate
+                .exchange(url, HttpMethod.GET, httpEntity,
+                        String.class, new HashMap<String, Object>());
+        System.out.println(responseEntity.getStatusCode());
+        System.out.println(responseEntity.getBody());
+    }
+
+    @Test
+    public void testDeleteMethod2() throws Exception {
+        String url = base.toString() + "child/{id}";
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept",MediaType.APPLICATION_JSON_UTF8_VALUE);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        HttpEntity<?> httpEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<String> responseEntity = restTemplate
+                .exchange(url,HttpMethod.DELETE,httpEntity,
+                        String.class,100);
+        //restTemplate.delete(url,100);
+
+        System.out.println(responseEntity.getStatusCode().is2xxSuccessful());
+        System.out.println(responseEntity.getBody());
+
+
+    }
+
+
+    @Test
+    public void testPutMethod() throws Exception {
+        String url = base.toString() + "put/{id}" ;
+        Seckill seckill = new Seckill();
+        seckill.setSeckillId(1000L);
+        seckill.setName("test");
+        seckill.setNumber(10);
+        seckill.setCreateTime(new DateTime(2016,11,20,0,0,0).toDate());
+        seckill.setEndTime(new DateTime(2017,1,20,0,0,0).toDate());
+        seckill.setStartTime(new DateTime(2016,11,21,0,0,0).toDate());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept",MediaType.APPLICATION_JSON_UTF8_VALUE);
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        String json = JsonUtil.beanToJson(seckill);
+        HttpEntity<String> requestEntity = new HttpEntity<>(json,headers);
+        //HttpEntity<String> requestEntity = new HttpEntity<>(new HttpHeaders());
+        ResponseEntity<Seckill> responseEntity = restTemplate
+                .exchange(url, HttpMethod.PUT,requestEntity,Seckill.class,seckill.getSeckillId());
+
+        System.out.println(responseEntity.getBody());
+
+    }
+
+
 
 }
