@@ -1,6 +1,7 @@
 package org.sun.spring.util;
 
 import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.ReadContext;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,12 +32,30 @@ public class JsonPathUtilTest {
     }
 
     @Test
+    public void getNow() throws Exception{
+        System.out.println(System.currentTimeMillis());
+    }
+
+    @Test
     public void getAllAuthors() throws IOException {
         //List<String> authors = JsonPath.parse(inputStream).read("$.store.book[*].author");
         //List<Map<String, Object>>  authors = JsonPath.parse(inputStream).read("$..book[?(@.isbn)]");
-        List<String> user = JsonPath.parse(inputStream).read("$.user");
+        //List<String> user = JsonPath.parse(inputStream).read("$.user");
+        //System.out.println(user);
+        ReadContext rctx = JsonPath.parse(inputStream);
 
-        System.out.println(user);
+
+        List<Map<String, Object>> book = rctx.read("$.store.book[*]");
+        System.out.println(book);
+
+
+        Integer money =rctx.read("$.expensive");
+        System.out.println(money);
+
+        //System.out.println(rctx.read());
+
+
+
         //List<String> authors = JsonPath.parse(inputStream).read("$.test");
 
         //authors.forEach(author -> System.out.println(author));
