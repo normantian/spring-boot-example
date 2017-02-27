@@ -1,0 +1,26 @@
+server:
+  port: 9999
+
+  tomcat:
+    max-threads: 200
+    min-spare-threads: 50
+
+
+spring:
+  aop:
+    auto: true
+    proxy-target-class: false
+
+my:
+  servers:
+    dev.bar.com
+    foo.bar.com
+    jiaobuchong.com
+  webserver:
+    ##HTTP 监听端口
+    port: 80
+    #嵌入Web服务器的线程池配置
+    threadPool:
+      maxThreads: 100
+      minThreads: 8
+      idleTimeout: 60000
