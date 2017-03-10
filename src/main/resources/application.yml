@@ -10,6 +10,22 @@ spring:
   aop:
     auto: true
     proxy-target-class: false
+  redis:
+    database: 0
+    host: localhost
+    password:
+    pool:
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0
+    port: 6379
+    timeout: 0
+    sentinel:
+      master:
+      nodes:
+
+
 
 my:
   servers:
