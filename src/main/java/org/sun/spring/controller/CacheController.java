@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.sun.spring.entity.Address;
 import org.sun.spring.entity.User;
@@ -37,8 +38,8 @@ public class CacheController {
             method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}
     )
-    public ResponseEntity<?> getCache() {
-        User user = cacheService.findUser(1l,"wang","yunfei");
+    public ResponseEntity<?> getCache(@RequestParam("userId") Long userId) {
+        User user = cacheService.findUser(userId,"wang","yunfei");
         //Address address =cacheService.findAddress(1l,"anhui","hefei");
         System.out.println("我这里没执行查询");
         System.out.println("user:"+"/"+user.getFirstName()+"/"+user.getLastName());

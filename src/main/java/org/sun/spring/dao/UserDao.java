@@ -22,7 +22,7 @@ public class UserDao {
     ValueOperations<String, String> valOpsStr;
 
     @Autowired
-    RedisTemplate<Object, Object> redisTemplate;
+    RedisTemplate<String, Object> redisTemplate;
 
     @Resource(name = "redisTemplate")
     ValueOperations<Object, Object> valOps;

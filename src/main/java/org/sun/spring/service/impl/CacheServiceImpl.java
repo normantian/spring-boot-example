@@ -15,8 +15,9 @@ import org.sun.spring.service.CacheService;
 public class CacheServiceImpl implements CacheService {
     @Override
 //    @Cacheable(value = "usercache",keyGenerator = "wiselyKeyGenerator")
-    @Cacheable(value = "userCache", key = "T(String).valueOf('User').concat(':').concat(#id)")
+//    @Cacheable(value = "userCache", key = "T(String).valueOf('User').concat(':').concat(#id)")
 //    @Cacheable(value = "userCache", key = "#id")
+    @Cacheable(value = "userCache", key = "'kislev:user:'+ #id")
     public User findUser(Long id, String firstName, String lastName) {
         System.out.println("userCache无缓存的时候调用这里");
         return new User(id,firstName,lastName);
@@ -24,7 +25,8 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
 //    @CacheEvict(value="userCache", key = "#id.toString()")
-    @CacheEvict(value="userCache",key = "T(String).valueOf('User').concat(':').concat(#id)")
+//    @CacheEvict(value="userCache",key = "T(String).valueOf('kislev:User:').concat(#id)")
+    @CacheEvict(value="userCache",key = "'kislev:user:'+ #id")
 //    @CacheEvict(value="userCache")
     public void removeUser(Long id) {
         System.out.println("删除了id,key为" + id +"的数据缓存");
@@ -33,7 +35,7 @@ public class CacheServiceImpl implements CacheService {
     @Override
 //    @CachePut(value = "userCache", key = "#p0.toString()")
 //    @CachePut(value="userCache", key = "T(String).valueOf('User').concat(':').concat(#user.id)")
-    @CachePut(value="userCache", key = "'User:'+ #user.id")
+    @CachePut(value="userCache", key = "'kislev:user:'+ #user.id")
 //    @CachePut(value="userCache",key = "#id")
     public User saveUser(User user) {
         System.out.println("userCache无缓存的时候调用这里");

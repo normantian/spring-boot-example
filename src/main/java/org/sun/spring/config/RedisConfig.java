@@ -51,12 +51,12 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     @Bean
-    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 //        RedisTemplate<String, String> redisTemplate = new RedisTemplate<String, String>();
 //        redisTemplate.setConnectionFactory(cf);
 //        return redisTemplate;
 //        StringRedisTemplate template = new StringRedisTemplate(redisConnectionFactory);
-        RedisTemplate<Object,Object> template = new RedisTemplate();
+        RedisTemplate<String,Object> template = new RedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);
 
         //setKeySerializer key序列化方式;（不然会出现乱码;）,但是如果方法上有Long等非String类型的话，会报类型转换错误；
