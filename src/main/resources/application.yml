@@ -5,11 +5,13 @@ server:
     max-threads: 200
     min-spare-threads: 50
 
-
+logging:
+  level:
+    org.springframework.web: DEBUG
 spring:
-  aop:
-    auto: true
-    proxy-target-class: false
+#  aop:
+#    auto: true
+#    proxy-target-class: false
   redis:
     database: 0
     host: localhost
@@ -25,8 +27,6 @@ spring:
       master:
       nodes:
 
-
-
 my:
   servers:
     dev.bar.com
@@ -40,3 +40,15 @@ my:
       maxThreads: 100
       minThreads: 8
       idleTimeout: 60000
+
+shiro:
+  #enabled: true
+  userNativeSessionManager: true
+  annotations:
+    enabled: true
+  web:
+    enabled: true
+  sessionManager:
+    sessionIdUrlRewritingEnabled: false
+
+

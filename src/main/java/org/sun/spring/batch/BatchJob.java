@@ -34,7 +34,7 @@ public class BatchJob {
 
     //這樣可以看的出來當在 Scheduled 主線程的時候還是要等他跑完 report1 後才會跑 report2，但是 AsyncWorker 部份是異步執行，不用等他跑完
 
-    //@Scheduled(fixedRate = 3000, initialDelay = 1 * 1000)
+//    @Scheduled(fixedRate = 3000, initialDelay = 1 * 1000)
     public void report1() {
         for (int i = 0; i < 10; i++) {
             worker.work("reportCurrentTime1 - " + counter.incrementAndGet());

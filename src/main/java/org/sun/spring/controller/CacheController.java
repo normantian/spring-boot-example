@@ -7,11 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.sun.spring.entity.Address;
 import org.sun.spring.entity.User;
 import org.sun.spring.service.CacheService;
-
-import static org.apache.shiro.web.filter.mgt.DefaultFilter.user;
 
 /**
  * Created by tianfei on 17/3/9.

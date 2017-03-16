@@ -15,9 +15,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Created by chenbin on 8/5/16.
  */
-@Configuration
+//@Configuration
 //@EnableWebMvc
-@EnableSwagger2
+//@EnableSwagger2
 //@ComponentScan("org.sun.spring.controller")
 public class SwaggerConfig {//extends WebMvcConfigurerAdapter {
     private static final String TITLE = "无讼对接平台API接口";
