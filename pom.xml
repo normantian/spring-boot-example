@@ -19,6 +19,7 @@
         <lombok-version>1.16.14</lombok-version>
     </properties>
     <dependencies>
+
         <!-- shiro -->
         <!--<dependency>-->
             <!--<groupId>org.apache.shiro</groupId>-->
@@ -193,7 +194,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- shiro core -->
+         <!--shiro core-->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
@@ -205,6 +206,37 @@
             <artifactId>shiro-spring</artifactId>
             <version>${shiro-version}</version>
         </dependency>
+
+
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shiro</groupId>-->
+            <!--<artifactId>shiro-spring-boot-web-starter</artifactId>-->
+            <!--<version>1.4.0-RC2</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+            <!--&lt;!&ndash;<groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+            <!--&lt;!&ndash;<artifactId>spring-boot-starter-thymeleaf</artifactId>&ndash;&gt;-->
+            <!--&lt;!&ndash;<version>${spring-boot.version}</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>javax.servlet-api</artifactId>-->
+            <!--<version>3.1.0</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; Spring &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-autoconfigure</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-configuration-processor</artifactId>-->
+            <!--<optional>true</optional>-->
+        <!--</dependency>-->
 
         <!-- shiro+redis缓存插件 -->
         <dependency>

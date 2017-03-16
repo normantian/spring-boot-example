@@ -27,7 +27,7 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    //    @Bean//(name = "realm")
+//        @Bean//(name = "realm")
 ////    @DependsOn("lifecycleBeanPostProcessor")
 //    public PropertiesRealm realm(){
 //        PropertiesRealm propertiesRealm = new PropertiesRealm();

@@ -1,9 +1,14 @@
 package org.sun.spring;
 
 import org.apache.shiro.authz.AuthorizationException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,14 +25,16 @@ import org.sun.spring.shiro.QuickStart;
 import java.util.HashMap;
 import java.util.Map;
 
-@EnableAutoConfiguration //启用自动配置 该框架就能够进行行为的配置，以引导应用程序的启动与运行, 根据导入的starter-pom 自动加载配置
-@EnableAspectJAutoProxy()
-@ComponentScan(basePackages = "org.sun.spring")
-@EnableAsync
+//@EnableAutoConfiguration //启用自动配置 该框架就能够进行行为的配置，以引导应用程序的启动与运行, 根据导入的starter-pom 自动加载配置
+//@EnableAspectJAutoProxy()
+//@ComponentScan(basePackages = "org.sun.spring")
+//@EnableAsync
 @Configuration
 @ControllerAdvice
 @SpringBootApplication
-public class Bootstrap {
+@EnableCaching
+public class Bootstrap implements CommandLineRunner {
+
 
     public static void main(String[] args) {
 
@@ -45,6 +52,24 @@ public class Bootstrap {
 //        System.exit(0);
     }
 
+    // Java EE应用服务器配置，
+    // 如果要使用tomcat来加载jsp的话就必须继承SpringBootServletInitializer类并且重写其中configure方法
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//        return application.sources(Bootstrap.class);
+//    }
+
+    /**
+     * Callback used to run the bean.
+     *
+     * @param args incoming main method arguments
+     * @throws Exception on error
+     */
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println("springboot启动完成！");
+    }
+
 //	@Bean
 //	public Realm realm() {
 //		TextConfigurationRealm realm = new TextConfigurationRealm();
@@ -55,19 +80,6 @@ public class Bootstrap {
 //				"user=read");
 //		realm.setCachingEnabled(true);
 //		return realm;
-//	}
-//
-//	@Bean
-//	public ShiroFilterChainDefinition shiroFilterChainDefinition() {
-//		DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
-//		chainDefinition.addPathDefinition("/login.html", "authc"); // need to accept POSTs from the login form
-//		chainDefinition.addPathDefinition("/logout", "logout");
-//		return chainDefinition;
-//	}
-//
-//	@ModelAttribute(name = "subject")
-//	public Subject subject() {
-//		return SecurityUtils.getSubject();
 //	}
 
     /**
@@ -86,20 +98,20 @@ public class Bootstrap {
 //		realm.setCachingEnabled(true);
 //		return realm;
 //	}
-    @ExceptionHandler(AuthorizationException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<Map> handleException(AuthorizationException e) {
-
-        // you could return a 404 here instead (this is how github handles 403, so the user does NOT know there is a
-        // resource at that location)
-        //log.debug("AuthorizationException was thrown", e);
-
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("status", HttpStatus.FORBIDDEN.value());
-        map.put("message", e.getLocalizedMessage());
-//        model.addAttribute("errors", map);
-
-        return new ResponseEntity<Map>(map,HttpStatus.FORBIDDEN);
-    }
+//    @ExceptionHandler(AuthorizationException.class)
+//    @ResponseStatus(HttpStatus.FORBIDDEN)
+//    public ResponseEntity<Map> handleException(AuthorizationException e) {
+//
+//        // you could return a 404 here instead (this is how github handles 403, so the user does NOT know there is a
+//        // resource at that location)
+//        //log.debug("AuthorizationException was thrown", e);
+//
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        map.put("status", HttpStatus.FORBIDDEN.value());
+//        map.put("message", e.getLocalizedMessage());
+////        model.addAttribute("errors", map);
+//
+//        return new ResponseEntity<Map>(map,HttpStatus.FORBIDDEN);
+//    }
 
 }
