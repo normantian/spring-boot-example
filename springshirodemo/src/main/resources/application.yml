@@ -1,0 +1,54 @@
+server:
+  port: 8081
+
+  tomcat:
+    max-threads: 200
+    min-spare-threads: 50
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+spring:
+  aop:
+    auto: true
+    proxy-target-class: true
+  redis:
+    database: 0
+    host: localhost
+    password:
+    pool:
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0
+    port: 6379
+    timeout: 0
+    sentinel:
+      master:
+      nodes:
+
+my:
+  servers:
+    dev.bar.com
+    foo.bar.com
+    jiaobuchong.com
+  webserver:
+    ##HTTP 监听端口
+    port: 80
+    #嵌入Web服务器的线程池配置
+    threadPool:
+      maxThreads: 100
+      minThreads: 8
+      idleTimeout: 60000
+
+shiro:
+  #enabled: true
+  userNativeSessionManager: true
+  annotations:
+    enabled: true
+#  web:
+#    enabled: true
+  sessionManager:
+    sessionIdUrlRewritingEnabled: false
+
+
