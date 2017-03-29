@@ -24,7 +24,7 @@ import org.apache.thrift.transport.TTransportException;
 public class HelloNonBlockingClient {
 
     private static final String SERVER_IP = "localhost";
-    private static final int NON_BLOCKING_SERVER_PORT = 8091;
+    private static final int NON_BLOCKING_SERVER_PORT = 8094;
     private static final int TIME_OUT = 30000;
 
     public static void main(String[] args) {

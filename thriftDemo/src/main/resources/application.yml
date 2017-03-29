@@ -1,0 +1,10 @@
+#暂时不考虑多实例服务
+thrift:
+  server:
+    port: 8094
+    thriftInterface: com.example.HelloWorldService #thirft 接口
+    selectorThreadCount: 2 #处理网络IO线程池大小, 默认为2
+    workerThreadCount: 5 #处理请求线程池大小,默认为5
+    acceptQueueSizePerThread: 4 #每个selector thread等待队列长度,默认4
+
+
