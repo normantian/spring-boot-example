@@ -1,4 +1,4 @@
-#暂时不考虑多实例服务
+#暂时不考虑多实例服务,thrift server config
 thrift:
   server:
     port: 8094
