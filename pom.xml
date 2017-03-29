@@ -5,6 +5,12 @@
     <artifactId>spring-boot-example</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <modules>
+        <module>thriftClientDemo</module>
+        <module>thriftDemo</module>
+        <module>springshirodemo</module>
+    </modules>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
